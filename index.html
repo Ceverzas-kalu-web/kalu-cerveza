@@ -54,7 +54,36 @@
       display: inline-block;
       margin-top: 10px;
     }
+    #carrito {
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+    }
   </style>
+  <script>
+    let carrito = [];
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      mostrarCarrito();
+    }
+
+    function mostrarCarrito() {
+      let contenedor = document.getElementById('carrito');
+      contenedor.innerHTML = '<h3>Carrito de Compras</h3>';
+      if (carrito.length === 0) {
+        contenedor.innerHTML += '<p>El carrito está vacío.</p>';
+        return;
+      }
+      let total = 0;
+      carrito.forEach((item, index) => {
+        contenedor.innerHTML += `<p>${item.nombre} - $${item.precio.toLocaleString('es-CL')} CLP</p>`;
+        total += item.precio;
+      });
+      contenedor.innerHTML += `<hr><p><strong>Total: $${total.toLocaleString('es-CL')} CLP</strong></p>`;
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -82,19 +111,21 @@
       <div class="producto">
         <h3>Cerveza Premium sabor mango</h3>
         <p>$3.500 CLP</p>
-        <a href="#" class="btn">Agregar al carrito</a>
+        <a href="#" class="btn" onclick="agregarAlCarrito('Cerveza Mango', 3500)">Agregar al carrito</a>
       </div>
       <div class="producto">
         <h3>Cerveza Premium sabor frutilla</h3>
         <p>$3.500 CLP</p>
-        <a href="#" class="btn">Agregar al carrito</a>
+        <a href="#" class="btn" onclick="agregarAlCarrito('Cerveza Frutilla', 3500)">Agregar al carrito</a>
       </div>
       <div class="producto">
         <h3>Cerveza Lager</h3>
         <p>$3.000 CLP</p>
-        <a href="#" class="btn">Agregar al carrito</a>
+        <a href="#" class="btn" onclick="agregarAlCarrito('Cerveza Lager', 3000)">Agregar al carrito</a>
       </div>
     </section>
+
+    <div id="carrito"></div>
 
     <section id="suscripcion">
       <h2>Suscripción Mensual</h2>
